@@ -1,3 +1,3 @@
-!/bin/bash
+#!/bin/bash
 
 ls -al / > /work/result

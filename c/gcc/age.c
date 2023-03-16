@@ -1,10 +1,7 @@
 #include <stdio.h>
+#include "myheader.h"
 
-int main() {
+void main() {
   int i;
-  printf("Input your age : ");
-  scanf("%d", &i);
-  printf("Your age is %d \n", i);
-
-  return 0;
+  printf("My age is %d \n", AGE);
 }

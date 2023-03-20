@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #gitignore
 
 .ftpconfig
@@ -11,3 +12,18 @@ c/**/test
 ###java
 
 java/*.class
+=======
+#gitignore
+
+.ftpconfig
+
+#c programming
+c/**/a.out
+c/**/hello
+c/**/*.o
+c/**/test
+
+###java
+
+java/*.class
+>>>>>>> 0fef93778346d0b9215a4b64a4fae7c03faa1db9

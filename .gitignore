@@ -26,4 +26,7 @@ c/**/test
 ###java
 
 java/*.class
->>>>>>> 0fef93778346d0b9215a4b64a4fae7c03faa1db9
+
+##scala
+scala/**/project
+scala/**/target

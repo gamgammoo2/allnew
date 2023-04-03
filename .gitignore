@@ -30,6 +30,9 @@ java/*.class
 ##scala
 scala/**/project
 scala/**/target
+##nodejs
+node/**/node_modules
+node/**/package-lock.json
 
 ##maven
 maven/target

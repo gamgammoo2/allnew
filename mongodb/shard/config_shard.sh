@@ -1,47 +1,52 @@
 #!/bin/bash
 
-#default mongodb deamon stop.
+# default mongodb daemon stop.
 systemctl stop mongod
 
-#stop shard
-./stop_shard.sh
+export IP_TEMP=$(ip addr | grep enp0s3 | grep inet | cut -d " " -f6 | cut -d "/" -f1 )
+echo $IP_TEMP
 
 # remove data directory
-if [ -d data ]; then ##-d : 디렉토리를 구성하면~
+if [ -d data ]; then
     rm -rf ./data
 fi
 
-#config Server
+# config Server
 mkdir -pv /shard/data/configdb
 mkdir -pv /shard/data/logs
 touch /shard/data/logs/configsvr.log
 
 mongod --config /shard/mongodConfig.conf &
-sleep 5s
+sleep 3s
+mongo $IP_TEMP:27019 < rs.init
 
-#router Server
+# router Server
 touch /shard/data/logs/mongorouter.log
 
 mongos --config /shard/mongodRouter.conf &
-sleep 5s
+sleep 3s
 
-#shard1 Server
+# shard1 Server
 mkdir -pv /shard/data/shard1db
 touch /shard/data/logs/shard1.log
 
 mongod --config /shard/mongodShard1.conf &
-sleep 5s
+sleep 2s
+mongo $IP_TEMP:27021 < rs.init
 
-#shard2 Server
+# shard2 Server
 mkdir -pv /shard/data/shard2db
 touch /shard/data/logs/shard2.log
 
-mongod --config /shard/mongoShard2.conf &
-sleep 5s
+mongod --config /shard/mongodShard2.conf &
+sleep 2s
+mongo $IP_TEMP:27022 < rs.init
 
-#process status
+# process status
 ps -ef | grep mongo
-sleep 5s
+sleep 2s
 
-#netstatus
+mongo $IP_TEMP:27017 < rs.addShard
+
+# netstatus
 netstat -ntlp

@@ -48,3 +48,7 @@ mongodb/*.json
 mongodb/**/*.json
 mongodb/**/*.mp4
 mongodb/backup
+
+##html
+html/mysql/node_modules
+html/mysql/package-lock.json

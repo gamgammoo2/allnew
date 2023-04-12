@@ -3,7 +3,13 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>회원가임</title>
+    <title>회원가입</title>
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <style>
+        body {
+            background-image: url("bono3.jpg")
+        }
+    </style>
 </head>
 
 <body>
@@ -11,12 +17,14 @@
     <hr />
     <form action="/success" method="post">
         <fieldset>
-            <legend>우리 페이지의 회원이 되어줄래?</legend>
-            <hr>
-            Userid : <input type="text" placeholder="test" name="id"><br>
-            Password : <input type="text" placeholder="****" name="pw"><br>
-            <input type="submit" value="회원가입">&nbsp;
-            <input type="reset" value="내용 삭제">&nbsp;
+            <div class="box3">
+                <legend>우리 페이지의 회원이 되어줄래?</legend>
+                <hr>
+                Userid : <input type="text" placeholder="test" name="id"><br>
+                Password : <input type="text" placeholder="****" name="pw"><br>
+                <input type="submit" value="회원가입" style="color:orange; background-color: blue;">&nbsp;
+                <input type="reset" value="내용 삭제" style="color: blue; background-color: orange;">&nbsp;
+            </div>
         </fieldset>
     </form>
     <hr />

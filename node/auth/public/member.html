@@ -4,23 +4,45 @@
 <head>
     <meta charset="utf-8" />
     <title>User Authentication</title>
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <style>
+        body {
+            background-image: url("bono1.jpg");
+        }
+
+        h3 {
+            text-align: center;
+            color: rgb(118, 139, 241);
+            background-color: rgb(245, 179, 236);
+            width: 600px;
+            font: bold 40px monospace, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
     <h3>User Authentication</h3>
     <hr />
-    <form action=" /insert" target="targetURL" name="userForm" method="post">
-        <p>Userid : <input type="text" size="15" name="id" /><br /></p>
-        <p>password : <input type="password" size="15" name="pw" /></p>
-        <input type="button" value="get select" onclick='document.targetURL.location.href="/select"' />&nbsp;&nbsp;
-        <input type="button" value="get selectQuery" onclick='document.targetURL.location.href="/selectQuery?userid="
-            +document.userForm.id.value' />&nbsp;&nbsp;
-        <input type="submit" value="post insert" />&nbsp;&nbsp;
-        <button type="submit" formaction="/update" />post update</button>&nbsp;&nbsp;
-        <button type="submit" formaction="/delete" />post delete</button>&nbsp;&nbsp;
-    </form>
-    <hr />
-    <iframe name="targetURL" width="70%" height="500" style="border: none" src="/hello"></iframe>
+    <div class="box">
+        <form action=" /insert" target="targetURL" name="userForm" method="post">
+            <div class="box2">
+                <p>Userid : <input type="text" size="15" name="id" /><br /></p>
+                <p>password : <input type="password" size="15" name="pw" /></p>
+                <input type="button" value="get select" onclick='document.targetURL.location.href="/select"' style="color:magenta; background-color: green;/>&nbsp;&nbsp;
+        <input type=" button" value="get selectQuery" onclick='document.targetURL.location.href="/selectQuery?userid="
+            +document.userForm.id.value' ; style="color:black; background-color: magenta;" />&nbsp;&nbsp;
+                <input type="submit" value="post insert" ;
+                    style="color: lightgreen; background-color: rgb(255, 255, 84);" />&nbsp;&nbsp;
+                <button type="submit" formaction="/update"
+                    style="color:rgb(255, 225, 0); background-color: blue;" />post
+                update</button>&nbsp;&nbsp;
+                <button type="submit" formaction="/delete" style="color:olive; background-color: khaki;" />post
+                delete</button>&nbsp;&nbsp;
+            </div>
+        </form>
+        <hr />
+        <iframe name="targetURL" width="70%" height="500" style="border: none" src="lee.gif"></iframe>
+    </div>
 </body>
 
 </html>

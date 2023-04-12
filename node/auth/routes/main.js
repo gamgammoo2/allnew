@@ -17,9 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/hello', (req, res) => {
-    res.send('hello world~!!');
-});
 
 // request 있다1, query 없다0
 app.get('/select', (req, res) => {
@@ -74,5 +71,31 @@ app.post('/delete', (req, res) => {
     console.log(result);
     res.redirect('/select');
 });
+//-----------------------------------------------------------------------
+
+// request 1, query 1
+app.post('/success', (req, res) => {
+    const { id, pw } = req.body;
+    const result = connection.query("insert into user values (?,?)", [id, pw]);
+    console.log(result);
+    res.redirect('/success.html');
+});
+
+// request 1, query 1
+app.post('/find', (req, res) => {
+    const { id, pw } = req.body;
+    const result = connection.query("SELECT * FROM user where userid=? and passwd=?", [id, pw]);
+    if (result.length == 0) {
+        res.redirect('error.html')
+    }
+    if (id == 'admin' || id == 'root') {
+        console.log(id + " >>>> 관리자 로그인함")
+        res.redirect("member.html")
+    } else {
+        console.log(id + " >>>> 유저 로그인함")
+        res.redirect('user.html')
+    }
+});
+
 
 module.exports = app;

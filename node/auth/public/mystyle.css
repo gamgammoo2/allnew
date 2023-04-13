@@ -13,6 +13,7 @@ h3 {
     background-color: rgb(245, 179, 236);
     width: 200px;
     font: bold 40px monospace, sans-serif;
+    margin: auto;
 }
 
 h2 {
@@ -21,6 +22,7 @@ h2 {
     background-color: rgb(245, 179, 236);
     width: 200px;
     font: bold 40px monospace, sans-serif;
+    margin: auto;
 }
 
 a {
@@ -51,6 +53,7 @@ div.box {
     margin: 80px;
     border-width: 1px;
     padding: 50px;
+    margin: auto;
 }
 
 div.box2 {

@@ -22,8 +22,59 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/select', (req, res) => {
     const result = connection.query('select * from user');
     console.log(result);
-    res.send(result);
-});
+    //res.send(result);
+    res.writeHead(200);
+    var template = `
+       <!doctype html>
+       <html>
+       <head>
+           <title>Result</title>
+           <meta charset="utf-8">
+           <style>
+table { /* 이중 테두리 제거 */
+	border-collapse : collapse; 
+}
+td, th { /* 모든 셀에 적용 */
+	text-align : center;
+	padding : 5px;
+	height : 15px;
+	width : 100px;
+}
+thead, tfoot { /* <thead>의 모든 셀에 적용 */
+	background : black;
+	color : white;
+}
+tbody tr:nth-child(even) { /* 짝수 <tr>에 적용*/
+	background : lightgray;
+}
+tbody tr:hover { /* 마우스가 올라오면 pink 배경 */
+	background : lightblue;	
+}
+</style>
+       </head>
+       <body>
+       <table border="1" style="margin:auto; text-align:center;">
+       <thead>
+           <tr><th>User ID</th><th>Password</th></tr>
+       </thead>
+       <tbody>
+       `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+       <tr>
+           <td>${result[i]['userid']}</td>
+           <td>${result[i]['passwd']}</td>
+       </tr>
+       `;
+    }
+    template += `
+       </tbody>
+       </table>
+       </body>
+       </html>
+   `;
+    res.end(template);
+})
 
 // request1, query 0
 app.post('/select', (req, res) => {
@@ -34,11 +85,72 @@ app.post('/select', (req, res) => {
 
 // request 1, query 1
 app.get('/selectQuery', (req, res) => {
-    const userid = req.query.userid;
-    const result = connection.query('SELECT * FROM user where userid=?', [userid]);
+    const id = req.query.id;
+    const result = connection.query("SELECT * FROM user where userid=?", [id]);
     console.log(result);
-    res.send(result);
-});
+    if (id == '') {
+        res.send("입력을 확인해주세요");
+    } else {
+        if (result.length == 0) {
+            res.send("테이블에 존재하지 않습니다.")
+        }
+        else {
+            res.writeHead(200);
+            var template = `
+       <!doctype html>
+       <html>
+       <head>
+           <title>Result</title>
+           <meta charset="utf-8">
+           <style>
+table { /* 이중 테두리 제거 */
+	border-collapse : collapse; 
+}
+td, th { /* 모든 셀에 적용 */
+	text-align : center;
+	padding : 5px;
+	height : 15px;
+	width : 100px;
+}
+thead, tfoot { /* <thead>의 모든 셀에 적용 */
+	background : black;
+	color : white;
+}
+tbody tr:nth-child(even) { /* 짝수 <tr>에 적용*/
+	background : lightgray;
+}
+tbody tr:hover { /* 마우스가 올라오면 pink 배경 */
+	background : lightblue;	
+}
+</style>
+       </head>
+       <body>
+       <table border="1" style="margin:auto; text-align:center;">
+       <thead>
+           <tr><th>User ID</th><th>Password</th></tr>
+       </thead>
+       <tbody>
+       `;
+            for (var i = 0; i < result.length; i++) {
+                template += `
+       <tr>
+           <td>${result[i]['userid']}</td>
+           <td>${result[i]['passwd']}</td>
+       </tr>
+       `;
+            }
+            template += `
+       </tbody>
+       </table>
+       </body>
+       </html>
+   `;
+        }
+        res.end(template);
+    }
+})
+
+
 
 // request 1, query 1
 app.post('/selectQuery', (req, res) => {
@@ -51,25 +163,55 @@ app.post('/selectQuery', (req, res) => {
 // request 1, query 1
 app.post('/insert', (req, res) => {
     const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?,?)", [id, pw]);
-    console.log(result);
-    res.redirect('/selectQuery?userid=' + req.body.id);
-});
+    if (id == "" || pw == "") {
+        res.send("입력을 확인해주세요");
+    } else {
+        let result = connection.query("select * from user where userid=?", [id]);
+        if (result.length != 0) {
+            res.send("테이블에 존재한다.")
+        }
+        else {
+            const result = connection.query("insert into user values (?,?)", [id, pw]);
+            console.log(result);
+            res.redirect('/selectQuery?id=' + id);
+        }
+    }
+})
 
 // request 1, query 1
 app.post('/update', (req, res) => {
     const { id, pw } = req.body;
-    const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
-    console.log(result);
-    res.redirect('/selectQuery?userid=' + req.body.id);
-});
+    if (id == "" || pw == "") {
+        res.send("입력을 확인해주세요");
+    } else {
+        let result = connection.query("select * from user where userid=?", [id]);
+        if (result.length == 0) {
+            res.send("테이블에 존재하지 않는다.");
+        }
+        else {
+            const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
+            console.log(result);
+            res.redirect('/selectQuery?id=' + id);
+        }
+    }
+})
 
 // request 1, query 1
 app.post('/delete', (req, res) => {
     const id = req.body.id;
-    const result = connection.query("delete from user where userid=?", [id]);
-    console.log(result);
-    res.redirect('/select');
+    if (id == "") {
+        res.send("id내놔")
+    } else {
+        const result = connection.query("select * from user where userid=?", [id]);
+        if (result.length == 0) {
+            res.send("x")
+        } else {
+            const result = connection.query("delete from user where userid=?", [id]);
+            console.log(result);
+            res.redirect('/select');
+        }
+    }
+
 });
 //-----------------------------------------------------------------------
 

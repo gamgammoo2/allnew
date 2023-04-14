@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>while 문</title>
+</head>
+
+<body>
+	<h3>컴퓨터와 신나는 가위바위보</h3>
+	<hr>
+	<script>
+		while (1) {
+			let user = prompt("랜덤 숫자(1 : 가위,2 : 바위,3:보)");
+			user = parseInt(user); // 문자열을 숫자로 바꿈
+			var rsp = [];
+			rsp[1] = "가위";
+			rsp[2] = "바위";
+			rsp[3] = "보";
+			if (user == 1 || user == 2 || user == 3) {
+				let com = Math.floor(Math.random() * 3) + 1;
+				if (user == 1 && com == 3) {
+					document.write("사용자 : " + rsp[user], "&nbsp;&nbsp;vs&nbsp;&nbsp;", "컴퓨터 : " + rsp[com], "&nbsp;&nbsp;", "이긴 쪽 : 사용자")
+				} else if (user == 3 && com == 1) {
+					document.write("사용자 : " + rsp[user], "&nbsp;&nbsp;vs&nbsp;&nbsp;", "컴퓨터 : " + rsp[com], "&nbsp;&nbsp;", "이긴 쪽 : 컴퓨터")
+				} else if (com < user) {
+					document.write("사용자 : " + rsp[user], "&nbsp;&nbsp;vs&nbsp;&nbsp;", "컴퓨터 : " + rsp[com], "&nbsp;&nbsp;", "이긴 쪽 : 사용자")
+				} else if (com > user) {
+					document.write("사용자 : " + rsp[user], "&nbsp;&nbsp;vs&nbsp;&nbsp;", "컴퓨터 : " + rsp[com], "&nbsp;&nbsp;", "이긴 쪽 : 컴퓨터")
+				} else {
+					document.write("사용자 : " + rsp[user], "&nbsp;&nbsp;vs&nbsp;&nbsp;", "컴퓨터 : " + rsp[com], "&nbsp;&nbsp;", "비겼노")
+				} break;
+			} else {
+				alert("다시 입력 해줄래?");
+				continue;
+			}
+		}
+	</script>
+</body>
+
+</html>

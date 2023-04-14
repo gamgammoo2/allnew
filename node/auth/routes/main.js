@@ -89,7 +89,8 @@ app.get('/selectQuery', (req, res) => {
     const result = connection.query("SELECT * FROM user where userid=?", [id]);
     console.log(result);
     if (id == '') {
-        res.send("입력을 확인해주세요");
+        //res.send("입력을 확인해주세요");
+        res.write("<script>alert('입력을 확인했나요 휴먼~~~?')</script>")
     } else {
         if (result.length == 0) {
             res.send("테이블에 존재하지 않습니다.")
@@ -164,11 +165,11 @@ app.post('/selectQuery', (req, res) => {
 app.post('/insert', (req, res) => {
     const { id, pw } = req.body;
     if (id == "" || pw == "") {
-        res.send("입력을 확인해주세요");
+        res.write("<script>alert('입력을 확인했나요 휴먼~~~?')</script>");;
     } else {
         let result = connection.query("select * from user where userid=?", [id]);
         if (result.length != 0) {
-            res.send("테이블에 존재한다.")
+            res.write("<script>alert('이런...휴먼...이미 있는 사람이잖슴...')</script>");
         }
         else {
             const result = connection.query("insert into user values (?,?)", [id, pw]);
@@ -182,11 +183,11 @@ app.post('/insert', (req, res) => {
 app.post('/update', (req, res) => {
     const { id, pw } = req.body;
     if (id == "" || pw == "") {
-        res.send("입력을 확인해주세요");
+        res.write("<script>alert('입력을 확인했나요 휴먼~~~?')</script>");
     } else {
         let result = connection.query("select * from user where userid=?", [id]);
         if (result.length == 0) {
-            res.send("테이블에 존재하지 않는다.");
+            res.write("<script>alert('휴먼...또...이런다...없는 놈을 내가 어찌 넣을까?? 영원히 휴면하고싶어 휴먼?')</script>");
         }
         else {
             const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
@@ -200,11 +201,11 @@ app.post('/update', (req, res) => {
 app.post('/delete', (req, res) => {
     const id = req.body.id;
     if (id == "") {
-        res.send("id내놔")
+        res.write("<script>alert('입력을 확인했나요 휴먼~~~?')</script>");
     } else {
         const result = connection.query("select * from user where userid=?", [id]);
         if (result.length == 0) {
-            res.send("x")
+            res.write("<script>alert('휴먼...또...이런다...없는 놈을 내가 어찌 뺄까?? 영원히 휴면하고싶어 휴먼?')</script>");
         } else {
             const result = connection.query("delete from user where userid=?", [id]);
             console.log(result);

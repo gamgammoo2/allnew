@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>
+		랜덤 배열 생성 후 각 배열의 원소를 누접합산 하여 3n보다 크면 종료
+	</title>
+</head>
+
+<body>
+	<h3>랜덤 배열 생성 후 각 배열의 원소를 누접합산 하여 3n보다 크면 종료</h3>
+	<hr />
+	<script>
+		while (1) {
+			let n = prompt("1에서 5 사이의 값 중 입력하세요.");
+			n = parseInt(n); // 문자열을 숫자로 바꿈
+			let sum = 0;
+			let array = new Array(n);
+			if (1 <= n <= 5) {
+
+				for (i = 0; i++) {
+					array[i] = Math.floor(Math.random());
+					sum += array[i];
+					if (sum > 20) { break }
+				}
+				while (sum < 20) {
+					if (sum < 20) {
+						document.write("<br> 배열의 값 : ");
+						for (let i = 0; i < n; i++) {
+							document.writeln(array[i]);
+						}
+
+						if (sum > 30) {
+							document.write(
+								"<br> 종료 시점의 인덱스 : array[" + i + "] <br> sum = " + sum
+							);
+							break;
+						}
+
+
+					} else { alert("더 더더더더더더more 몰몰몰모모모몰모롬롤"); continue; }
+				}
+			} else {
+				alert("제대로 입력해~!!");
+				continue;
+			}
+		}
+
+	</script>
+</body>
+
+</html>

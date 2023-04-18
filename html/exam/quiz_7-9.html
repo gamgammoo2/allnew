@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>프로토타입으로 객체 만들기</title>
+	<script>
+		// 프로토타입 만들기 : 생성자 함수 작성
+		function Book(title, author, totalPage, category, price) {
+			this.title = title;
+			this.author = author;
+			this.totalPage = totalPage;
+			this.category = category;
+			this.price = price;
+			this.leftover = totalPage;
+			this.deposit = 2000;
+			this.rentalState = 1;
+			this.rentalUser = "";
+			this.rentalDay = 0;
+
+			this.reading = function (page) { this.leftover -= page; return this.leftover; }
+			this.rental = function (user, day) { this.rentalUser = user; this.rentalDay = day; this.rentalState = 0; return this.rentalState; }
+			this.late = function (late) { this.deposit -= 100 * (late - 14); return this.deposit; }
+		};
+	</script>
+</head>
+
+<body>
+	<h3>book 프로토타입 만들기</h3>
+	<hr>
+	<script>
+		// new 연산자 이용하여 계좌 객체 생성
+		let book = new Book("대머리관리법", "빛나리", 30, "sf,공상과학", 3000, 30, 2000, 1, "", 0);
+
+		// 객체 활용
+		document.write("Book : " + "<br>");
+		document.write("제목 : " + book.title + "<br>");
+		document.write("저자 : " + book.author + "<br>");
+		document.write("장르 : " + book.category + "<br>");
+		document.write("가격 : " + book.price + "원" + "<br>");
+		document.write("보증금 : " + book.deposit + "원" + "<br>");
+		document.write("<hr />");
+
+		document.write("전체 페이지 : " + book.totalPage + "<br>" + "남은 페이지 :" + book.reading(5) + "<br>" + "<hr>");
+
+		book.rental("김광규", 17);
+		let state = { 0: "대출중", 1: "대출가능" };
+		document.write("현재 " + book.title + "는 " + book.rentalUser + "님에게 " + book.rentalDay + "일 동안 " + state[book.rentalState] + "입니다." + "<br>");
+
+		// book.rental("김광규", 17);
+		// let state = { 0: "대출중", 1: "대출가능" };
+		// document.write("현재 " + book.title + "는 " + book.rentalUser + "님에게 " + book.rentalDay + "일 동안 " + state[book.rentalState] + "입니다." + "<br>");
+
+		document.write("연체일자 : " + (book.rentalDay - 14) + "<br>" + "보증금 :" + book.deposit + "<br>" + "보증금 차감 후  남은금액 : " + book.late(17) + "<br>");
+
+		// document.write("연체일자 : " + (book.rentalDay - 14) + "<br>" + "보증금 :" + book.deposit + "<br>" + "보증금 차감 후  남은금액 : " + book.late(17) + "<br>");
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>프로토타입으로 객체 만들기</title>
+	<script>
+		// 프로토타입 만들기 : 생성자 함수 작성
+		function Car(brand, grade, maxFuel, displacement, price) {
+			this.brand = brand;
+			this.grade = grade;
+			this.maxFuel = maxFuel;
+			this.displacement = displacement;//배기량
+			this.price = price;
+			this.leftover = maxFuel;
+			// this.leftover = totalPage;
+			// this.deposit = 2000;
+			// this.rentalState = 1;
+			// this.rentalUser = "";
+			// this.rentalDay = 0;
+
+			this.drive = function (from, to) { this.start = from; this.end = to; }
+			this.fuel = function (distance) { this.leftover -= distance; return this.leftover; }
+			this.refueling = function (amount) { this.leftover += amount; return this.leftover; }//maxfuel일까? 그러면 서로다른 코드문에서도 이전 내용이 적용이되나? 안됨 ㅅㅂ...
+		};
+	</script>
+</head>
+
+<body>
+	<h3>CAR 프로토타입 만들기</h3>
+	<hr>
+	<script>
+		// new 연산자 이용하여 계좌 객체 생성
+		let car1 = new Car("benz", "sedan", 700, 2500, 3000);
+		let car2 = new Car("bmw", "SUV", 800, 4000, 4000);
+
+
+		// 객체 활용
+		document.write("CARCARCARCARCARCARCARCARCARCARCARCARCARCAR" + "<br>");
+		document.write("CAR BRAND : " + car1.brand + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+		document.write("CAR BRAND : " + car2.brand + "<br>");
+		document.write("GRADE : " + car1.grade + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); document.write("GRADE : " + car2.grade + "<br>");
+		document.write("MAX_FUEL : " + car1.maxFuel + "km/ℓ" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); document.write("MAX_FUEL : " + car2.maxFuel + "km/ℓ" + "<br>");
+		document.write("DISPLACEMENT : " + car1.displacement + "cc" + "&nbsp;&nbsp;"); document.write("DISPLACEMENT : " + car2.displacement + "cc" + "<br>");
+		document.write("PRICE : " + car1.price + "만원" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"); document.write("PRICE : " + car2.price + "만원" + "<br>");
+		document.write("<hr />");
+
+		car1.drive("SEOUL", "PUSAN", 350)
+		car2.drive("SEOUL", "TONGYEONG", 420)
+		document.write("FROM : " + car1.start + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "FROM : " + car2.start + "<br>" + "TO :" + car1.end + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "TO :" + car2.end + "<br>" + "REMAINING_FUEL : " + car1.fuel(350) + "&nbsp;&nbsp;&nbsp;&nbsp;" + "REMAINING_FUEL : " + car2.fuel(420) + "<hr>");
+
+		car1.refueling(320)
+		car2.refueling(400)
+		document.write("REFUELING : " + car1.refueling(320) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "REFUELING : " + car2.refueling(400) + "<br>")
+
+
+		// book.rental("김광규", 17);
+		// let state = { 0: "대출중", 1: "대출가능" };
+		// document.write("현재 " + book.title + "는 " + book.rentalUser + "님에게 " + book.rentalDay + "일 동안 " + state[book.rentalState] + "입니다." + "<br>");
+
+		// document.write("연체일자 : " + (book.rentalDay - 14) + "<br>" + "보증금 :" + book.deposit + "<br>" + "보증금 차감 후  남은금액 : " + book.late(17) + "<br>");
+
+		// document.write("연체일자 : " + (book.rentalDay - 14) + "<br>" + "보증금 :" + book.deposit + "<br>" + "보증금 차감 후  남은금액 : " + book.late(17) + "<br>");
+	</script>
+</body>
+
+</html>

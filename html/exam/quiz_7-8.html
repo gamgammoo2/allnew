@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>방문 시간에 따라 변하는 배경색</title>
+</head>
+
+<body>
+	<h3>페이지 방문 초시간이 짝수이면 violet, 홀수이면 lightskyblue 배경</h3>
+	<hr>
+	<script>
+		let current = new Date(); // 현재 시간 값을 가진 Date 객체 생성
+		let first = new Date(2023, 2, 6, 09, 00, 00);
+		if (current.getSeconds() % 2 == 0)
+			document.body.style.backgroundColor = "lightgreen";
+		else
+			document.body.style.backgroundColor = "lightskyblue";
+		let month = current.getMonth() - first.getMonth();
+		let day = current.getDate() - first.getDate();
+		let aor = current.getHours() - first.getHours();
+		let minu = current.getMinutes() - first.getMinutes();
+		let secon = current.getSeconds() - first.getSeconds();
+		document.write("뺀 시간 : ");
+
+		document.write("시,");
+		document.write(current.getMinutes() - first.getMinutes(), "분,");
+		document.write(current.getSeconds() - first.getSeconds(), "초<br>");
+	</script>
+</body>
+
+</html>

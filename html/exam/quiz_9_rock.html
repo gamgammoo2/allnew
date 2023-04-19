@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>컴퓨터와 가위바이보를 라디오버튼으로</title>
+	<script>
+		function findChecked() {
+			let found = null;
+			let kcity = document.getElementsByName("rsp");
+			let com = Math.floor(Math.random() * 3) + 1;
+			for (let i = 0; i < kcity.length; i++) {
+				if (kcity[i].checked == true)
+					found = kcity;
+			}
+			if (found != null) {
+				var rsp_ = [];
+				rsp_[1] = "가위";
+				rsp_[2] = "바위";
+				rsp_[3] = "보";
+
+				if (found == 1 && com == 3) {
+					alert("사용자 : " + rsp_[found] + "컴퓨터 : " + rsp_[com] + "  " + "이긴 쪽 : 사용자")
+				} else if (found == 3 && com == 1) {
+					alert("사용자 : " + rsp_[found] + "컴퓨터 : " + rsp_[com] + "  " + "이긴 쪽 : 컴퓨터")
+				} else if (com < found) {
+					alert("사용자 : " + rsp_[found] + "컴퓨터 : " + rsp_[com] + "  " + "이긴 쪽 : 사용자")
+				} else if (com > found) {
+					alert("사용자 : " + rsp_[found] + "컴퓨터 : " + rsp_[com] + "  " + "이긴 쪽 : 컴퓨터")
+				} else {
+					alert("사용자 : " + rsp_[found] + "컴퓨터 : " + rsp_[com] + "  " + "비겼노")
+				};
+			}
+			else
+				alert("선택된 것이 없음");
+		}
+	</script>
+
+</head>
+
+<body>
+	<h3>버튼을 클릭하면 선택된 가위바위보 버튼의 값을 출력합니다.</h3>
+	<hr>
+	<form>
+		<input type="radio" name="rsp" value="1" checked>가위
+		<input type="radio" name="rsp" value="2">바위
+		<input type="radio" name="rsp" value="3">보
+		<input type="button" value="let's getit" onclick="findChecked()">
+	</form>
+</body>
+
+</html>

@@ -266,10 +266,10 @@ app.post('/find', (req, res) => {
     }
     if (id == 'admin' || id == 'root') {
         console.log(id + " >>>> 관리자 로그인함")
-        res.redirect("member.html")
+        res.redirect("member.html?id=" + id);
     } else {
         console.log(id + " >>>> 유저 로그인함")
-        res.redirect('gohome.html')
+        res.redirect('gohome.html?id=' + id)
     }
 });
 

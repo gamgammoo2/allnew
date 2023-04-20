@@ -37,14 +37,43 @@
             /* 마우스 올라 갈 때 색 */
         }
     </style>
+    <script>
+        function getParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null
+                ? ""
+                : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        function sessionStore() {
+            let id = getParameter("id");
+            let now = new Date();
+            if (!window.sessionStorage) {
+                alert("세션 스토리지에 넣을게 없습니다..");
+                return;
+            }
+            sessionStorage.setItem(id, now);
+            alert(`사용자 ${id} 세션 스토리지 생성`);
+        }
+        function remove() {
+            if (confirm("로그아웃할ggyu?")) {
+                let id = getParameter("id");
+                // let now = new Date();
+                sessionStorage.removeItem(id);
+                alert(`사용자 ${id}세션 스토리지 삭제`);
+                location.href = "index.html";
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body onload="sessionStore()">
     <nav id="user">
         <ul>
             <li name="li"><a href="/">HOME</a></li>
             <li name="li"><a href="/simson.html">날_알아봐요</a></li>
-            <li style="float:right"><a href="/index.html">태초마을</a></li>
+            <li style="float:right"><a onclick="remove()">태초마을</a></li>
         </ul>
     </nav>
     <br>

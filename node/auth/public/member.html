@@ -62,13 +62,29 @@
         function sessionStore() {
             let id = getParameter("id");
             let now = new Date();
+
             if (!window.sessionStorage) {
                 alert("세션 스토리지에 넣을게 없습니다..");
                 return;
             }
-            console.log('a' + id)
-            sessionStorage.setItem(id, now);
-            alert(`사용자 ${id} 세션 스토리지 생성`);
+            if (id == "") {
+                alert("비정상적인 접근")
+                sessionStorage.removeItem("")
+
+                location.href = "index.html"
+            } else {
+                for (let i = 0; i < sessionStorage.key.length; i++) {
+                    if (id == sessionStorage.key(i)) {
+                        sessionStorage.setItem(id, now);
+                        return;
+                    } else {
+                        sessionStorage.setItem(id, now);
+                        alert(`사용자 ${id} 세션 스토리지 생성`);
+                    }
+
+                }
+
+            }
         }
         function remove() {
             if (confirm("로그아웃할ggyu?")) {

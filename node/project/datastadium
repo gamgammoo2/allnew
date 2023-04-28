@@ -1,0 +1,116 @@
+use test
+db.dataStadium.find();
+
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "챔피언석(1인)", seatnumber: i, worw: "1", seatprice: 45000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "챔피언석(1인)", seatnumber: i, worw: "2", seatprice: 50000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "중앙테이블석(2인)", seatnumber: i, worw: "1", seatprice: 80000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "중앙테이블석(2인)", seatnumber: i, worw: "2", seatprice: 90000 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "중앙테이블석(3인)", seatnumber: i, worw: "1", seatprice: 120000 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "중앙테이블석(3인)", seatnumber: i, worw: "2", seatprice: 135000 })
+for (var i = 1; i <= 15; i++) db.dataStadium.insert({ teamID: 13, seatsection: "1,3루타이거즈가족석(4인)", seatnumber: i, worw: "1", seatprice: 70000 })
+for (var i = 1; i <= 15; i++) db.dataStadium.insert({ teamID: 13, seatsection: "1,3루타이거즈가족석(4인)", seatnumber: i, worw: "2", seatprice: 80000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "1,3루타이거즈가족석(6인)", seatnumber: i, worw: "1", seatprice: 105000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "1,3루타이거즈가족석(6인)", seatnumber: i, worw: "2", seatprice: 120000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "파티석(4인)", seatnumber: i, worw: "1", seatprice: 100000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "파티석(4인)", seatnumber: i, worw: "2", seatprice: 120000 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이피크닉석(4인)", seatnumber: i, worw: "1", seatprice: 70000 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이피크닉석(4인)", seatnumber: i, worw: "2", seatprice: 80000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "에코다이나믹스가족석(6인)", seatnumber: i, worw: "1", seatprice: 96000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "에코다이나믹스가족석(6인)", seatnumber: i, worw: "2", seatprice: 108000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "서프라이즈석(1인)", seatnumber: i, worw: "1", seatprice: 22000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "서프라이즈석(1인)", seatnumber: i, worw: "2", seatprice: 25000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(일반)", seatnumber: i, worw: "1", seatprice: 14000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(일반)", seatnumber: i, worw: "2", seatprice: 16000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(청소년)", seatnumber: i, worw: "1", seatprice: 11000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(청소년)", seatnumber: i, worw: "2", seatprice: 13000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(어린이)", seatnumber: i, worw: "1", seatprice: 7000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K9석(어린이)", seatnumber: i, worw: "2", seatprice: 8000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(일반)", seatnumber: i, worw: "1", seatprice: 12000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(일반)", seatnumber: i, worw: "2", seatprice: 14000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(청소년)", seatnumber: i, worw: "1", seatprice: 9000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(청소년)", seatnumber: i, worw: "2", seatprice: 11000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(어린이)", seatnumber: i, worw: "1", seatprice: 6000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K8석(어린이)", seatnumber: i, worw: "2", seatprice: 7000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(일반)", seatnumber: i, worw: "1", seatprice: 11000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(일반)", seatnumber: i, worw: "2", seatprice: 13000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(청소년)", seatnumber: i, worw: "1", seatprice: 8000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(청소년)", seatnumber: i, worw: "2", seatprice: 10000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(어린이)", seatnumber: i, worw: "1", seatprice: 5500 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K5석(어린이)", seatnumber: i, worw: "2", seatprice: 6500 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(일반)", seatnumber: i, worw: "1", seatprice: 8000 })
+for (var i = 1; i <= 100; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(일반)", seatnumber: i, worw: "2", seatprice: 9000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(청소년)", seatnumber: i, worw: "1", seatprice: 5000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(청소년)", seatnumber: i, worw: "2", seatprice: 6000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(어린이)", seatnumber: i, worw: "1", seatprice: 4000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(어린이)", seatnumber: i, worw: "2", seatprice: 4500 })
+for (var i = 1; i <= 40; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(호남지역야구부유니폼착용시)", seatnumber: i, worw: "1", seatprice: 0 })
+for (var i = 1; i <= 40; i++) db.dataStadium.insert({ teamID: 13, seatsection: "K3석(호남지역야구부유니폼착용시", seatnumber: i, worw: "2", seatprice: 0 })
+for (var i = 1; i <= 300; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(일반)", seatnumber: i, worw: "1", seatprice: 9000 })
+for (var i = 1; i <= 300; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(일반)", seatnumber: i, worw: "2", seatprice: 11000 })
+for (var i = 1; i <= 150; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(청소년)", seatnumber: i, worw: "1", seatprice: 6000 })
+for (var i = 1; i <= 150; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(청소년)", seatnumber: i, worw: "2", seatprice: 8000 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(어린이)", seatnumber: i, worw: "1", seatprice: 4500 })
+for (var i = 1; i <= 50; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(어린이)", seatnumber: i, worw: "2", seatprice: 5500 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(어린이회원)", seatnumber: i, worw: "1", seatprice: 0 })
+for (var i = 1; i <= 30; i++) db.dataStadium.insert({ teamID: 13, seatsection: "외야석(어린이회원)", seatnumber: i, worw: "2", seatprice: 0 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(10인실)", seatnumber: i, worw: "1", seatprice: 600000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(10인실)", seatnumber: i, worw: "2", seatprice: 600000 })
+for (var i = 1; i <= 8; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(14인실)", seatnumber: i, worw: "1", seatprice: 840000 })
+for (var i = 1; i <= 8; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(14인실)", seatnumber: i, worw: "2", seatprice: 840000 })
+for (var i = 1; i <= 6; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(18인실)", seatnumber: i, worw: "1", seatprice: 1080000 })
+for (var i = 1; i <= 6; i++) db.dataStadium.insert({ teamID: 13, seatsection: "스카이박스(18인실)", seatnumber: i, worw: "2", seatprice: 1080000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "장애인지정좌석", seatnumber: i, worw: "1", seatprice: 4000 })
+for (var i = 1; i <= 20; i++) db.dataStadium.insert({ teamID: 13, seatsection: "장애인지정좌석", seatnumber: i, worw: "2", seatprice: 5000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "휠체어석(내야)", seatnumber: i, worw: "1", seatprice: 4000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 13, seatsection: "휠체어석(내야)", seatnumber: i, worw: "2", seatprice: 5000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "휠체어석(외야)", seatnumber: i, worw: "1", seatprice: 0 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "휠체어석(외야)", seatnumber: i, worw: "2", seatprice: 0 })
+
+for (var i = 1; i <= 108; i++) db.dataStadium.insert({ teamID: 14, seatsection: "중앙VIP석", seatnumber: i, worw: "1", seatprice: 70000 })
+for (var i = 1; i <= 108; i++) db.dataStadium.insert({ teamID: 14, seatsection: "", seatnumber: i, worw: "2", seatprice: 70000 })
+
+for (var i = 1; i <= 120; i++) db.dataStadium.insert({ teamID: 14, seatsection: "테이블석", seatnumber: i, worw: "1", seatprice: 47000 })
+for (var i = 1; i <= 120; i++) db.dataStadium.insert({ teamID: 14, seatsection: "테이블석", seatnumber: i, worw: "2", seatprice: 53000 })
+
+for (var i = 1; i <= 220; i++) db.dataStadium.insert({ teamID: 14, seatsection: "익사이팅존", seatnumber: i, worw: "1", seatprice: 25000 })
+for (var i = 1; i <= 220; i++) db.dataStadium.insert({ teamID: 14, seatsection: "익사이팅존", seatnumber: i, worw: "2", seatprice: 30000 })
+
+for (var i = 1; i <= 160; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(일반)", seatnumber: i, worw: "1", seatprice: 20000 })
+for (var i = 1; i <= 160; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(일반)", seatnumber: i, worw: "2", seatprice: 22000 })
+
+for (var i = 1; i <= 22; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(휠체어석)", seatnumber: i, worw: "1", seatprice: 10000 })
+for (var i = 1; i <= 22; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(휠체어석)", seatnumber: i, worw: "2", seatprice: 11000 })
+
+for (var i = 1; i <= 5; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(휠체어석동반)", seatnumber: i, worw: "1", seatprice: 20000 })
+for (var i = 1; i <= 5; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(휠체어석동반)", seatnumber: i, worw: "2", seatprice: 22000 })
+
+for (var i = 1; i <= 155; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(오렌지석(응원석)", seatnumber: i, worw: "1", seatprice: 18000 })
+for (var i = 1; i <= 155; i++) db.dataStadium.insert({ teamID: 14, seatsection: "블루석(오렌지석(응원석)", seatnumber: i, worw: "2", seatprice: 20000 })
+
+for (var i = 1; i <= 221; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(일반)", seatnumber: i, worw: "1", seatprice: 16000 })
+for (var i = 1; i <= 221; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(일반)", seatnumber: i, worw: "2", seatprice: 18000 })
+
+for (var i = 1; i <= 44; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석)", seatnumber: i, worw: "1", seatprice: 16000 })
+for (var i = 1; i <= 44; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석)", seatnumber: i, worw: "2", seatprice: 18000 })
+
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석)", seatnumber: i, worw: "1", seatprice: 8000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석)", seatnumber: i, worw: "2", seatprice: 9000 })
+
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석동반)", seatnumber: i, worw: "1", seatprice: 16000 })
+for (var i = 1; i <= 10; i++) db.dataStadium.insert({ teamID: 14, seatsection: "레드석(휠체어석동반)", seatnumber: i, worw: "2", seatprice: 16000 })
+
+for (var i = 1; i <= 130; i++) db.dataStadium.insert({ teamID: 14, seatsection: "네이비석", seatnumber: i, worw: "1", seatprice: 13000 })
+for (var i = 1; i <= 130; i++) db.dataStadium.insert({ teamID: 14, seatsection: "네이비석", seatnumber: i, worw: "2", seatprice: 15000 })
+
+for (var i = 1; i <= 21; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(일반)", seatnumber: i, worw: "1", seatprice: 8000 })
+for (var i = 1; i <= 21; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(일반)", seatnumber: i, worw: "2", seatprice: 9000 })
+
+for (var i = 1; i <= 321; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(청소년군경)", seatnumber: i, worw: "1", seatprice: 6000 })
+for (var i = 1; i <= 321; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(청소년군경)", seatnumber: i, worw: "2", seatprice: 7000 })
+
+for (var i = 1; i <= 21; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(어린이장애인유공자경로자)", seatnumber: i, worw: "1", seatprice: 4000 })
+for (var i = 1; i <= 21; i++) db.dataStadium.insert({ teamID: 14, seatsection: "외야석(어린이장애인유공자경로자)", seatnumber: i, worw: "2", seatprice: 5000 })
+
+
+
+db.dataStadium.find();

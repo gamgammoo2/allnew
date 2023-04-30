@@ -13,15 +13,14 @@
     <h1>야구 예매</h1>
   </header>
   <main>
-
     <section class="ticket-selection">
       <h2>좌석 선택</h2>
       <div>
         <label for="selectTeam">구단:</label>
         <select id="selectTeam">
           <option value="" disabled selected>구단을 선택하세요</option>
-          <option value="doosan">두산 베어스</option>
-          <option value="kia">기아 타이거즈</option>
+          <option value="14">두산 베어스</option>
+          <option value="13">기아 타이거즈</option>
         </select>
       </div>
       <div>
@@ -54,31 +53,28 @@
           </div>
         </form>
     </section>
-    <div class="back">
+    <div>
       <ul>
-        <li style="list-style: none;"><a href="login.html">뒤로가기</a></li>
+        <li style="list-style: none;"><a href="main.html">홈으로</a></li>
       </ul>
     </div>
   </main>
-
   <script>
     document.getElementById("ticketForm").addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const gameSelect = document.getElementById("gameSelect");
       const selectTeam = document.getElementById("selectTeam");
       const selectSeat = document.getElementById("selectSeat");
       const selectSeatNum = document.getElementById("selectSeatNum");
       const selectWeekday = document.getElementById("selectWeekday");
       const ticketCount = document.getElementById("ticketCount");
-      const selectedGame = gameSelect.options[gameSelect.selectedIndex].text;
       const selectedTeam = selectTeam.options[selectTeam.selectedIndex].text;
       const selectedSeat = selectSeat.options[selectSeat.selectedIndex].text;
       const selectedSeatNum = selectSeatNum.value;
       const selectedWeekday = selectWeekday.options[selectWeekday.selectedIndex].text;
 
       alert(
-        `선택한 경기: ${selectedGame}\n구단: ${selectedTeam}\n좌석: ${selectedSeat} ${selectedSeatNum}번\n요일: ${selectedWeekday}\n티켓 수: ${ticketCount.value}`
+        `선택한 경기: 야구 예매\n구단: ${selectedTeam}\n좌석: ${selectedSeat} ${selectedSeatNum}번\n요일: ${selectedWeekday}\n티켓 수: ${ticketCount.value}`
       );
     });
   </script>

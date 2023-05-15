@@ -1,0 +1,87 @@
+/* mystyle.css */
+body {
+    font: bold 30px monospace, sans-serif;
+    background-image: url("bono2.jpg");
+    color: blue;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h3 {
+    text-align: center;
+    color: rgb(118, 139, 241);
+    background-color: rgb(245, 179, 236);
+    width: 200px;
+    font: bold 40px monospace, sans-serif;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: rgb(118, 139, 241);
+    background-color: rgb(245, 179, 236);
+    width: 200px;
+    font: bold 40px monospace, sans-serif;
+    margin: auto;
+}
+
+a {
+    color: red;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+legend {
+    color: red;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+input[type="text"] {
+    background-color: rgb(217, 249, 173);
+}
+
+input[type="password"] {
+    background-color: rgb(243, 231, 238);
+}
+
+div.box {
+    background: rgb(255, 255, 255);
+    border-style: dotted;
+    border-color: rgb(238, 200, 162);
+    border-radius: 0px 150px 0px 150px;
+    margin: 80px;
+    border-width: 1px;
+    padding: 50px;
+    margin: auto;
+}
+
+div.box2 {
+    background: rgb(255, 255, 255);
+    border-style: dotted;
+    border-color: rgb(255, 255, 255);
+    border-image: url("simson.png") 404 round;
+    text-align: center;
+    margin: 10px;
+    border-width: 40px;
+    padding: 10px;
+}
+
+div.box3 {
+    background-color: pink;
+    border-style: dotted;
+    border-color: cyan;
+    margin: 10px;
+    border-width: 40px;
+    padding: 10px;
+}
+
+div.box4 {
+    background-image: url("cutton1.jpg");
+    background-size: cover;
+    border-style: dashed;
+    border-color: rgb(229, 255, 0);
+    margin: 10px;
+    border-width: 20px;
+    padding: 10px;
+}

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>프로토타입으로 객체 만들기</title>
+	<script>
+		// 프로토타입 만들기 : 생성자 함수 작성
+		function Cal(height, gender, weight, calorie, active) {
+			this.height = height;
+			this.gender = gender; //0
+			this.weight = weight; //2:표준활동
+			this.calorie = calorie;
+			this.a = 0;
+			this.active = active;
+			// this.left = left;
+			// this.leftover = totalPage;
+			// this.deposit = 2000;
+			// this.rentalState = 1;
+			// this.rentalUser = "";
+			// this.rentalDay = 0;
+
+			this.info = function () {
+				let state = { 0: "MAN", 1: "WOMAN" }
+				let stat = { 2: "no운동", 3: "보통활동", 4: "운동함" }
+				document.write(`
+				height : ${this.height}<br>
+				gender: ${state[this.gender]}<br>
+				weight: ${this.weight}<br>
+				intaked calorie: ${this.calorie}<br>
+				active: ${stat[this.active]}<br><hr>`);
+			};
+
+
+
+			this.total = function () {
+				if (this.gender == 0) {
+					let man = ((this.height) * (this.height)) * 22
+					if (this.active == 2) { this.a = man * 25 }
+					else if (this.active == 3) { this.a = man * 30 }
+					else { this.a = man * 35 }
+				}
+				else {
+					let woman = ((this.height) * (this.height)) * 21
+					if (this.active == 2) { this.a = woman * 25 }
+					else if (this.active == 3) { this.a = woman * 30 }
+					else { this.a = woman * 35 }
+				};
+				document.write("필요 섭취 칼로리 : ", Math.floor(this.a), "<br>")
+				//document.write("필수로 채워야하는 칼로리 : ", math.floor(this.a), "<br>")
+				this.a -= this.calorie;
+				//return this.a;
+
+				document.write("앞으로 필수로 채워진 칼로리 : (음수일경우, 초과섭취) : ", Math.floor(this.a), "<br>", "<hr>");
+			}
+			// this.fuel = function (distance) { this.leftover -= distance; return this.leftover; }
+			// this.refueling = function (amount) { this.leftover += amount; return this.leftover; }//maxfuel일까? 그러면 서로다른 코드문에서도 이전 내용이 적용이되나? 안됨 ㅅㅂ...left를 새로 만들어야함
+		};
+	</script>
+</head>
+
+<body>
+	<h3>칼로리 프로토타입 만들기</h3>
+	<hr>
+	<script>
+		// new 연산자 이용하여 계좌 객체 생성
+		let human1 = new Cal(1.65, 1, 60, 1500, 2);
+		human1.info();
+		human1.total();
+
+		let human2 = new Cal(1.74, 0, 75, 2700, 3);
+		human2.info();
+		human2.total();
+
+		let human3 = new Cal(1.84, 0, 78, 2100, 4);
+		human3.info();
+		human3.total();
+
+
+	</script>
+</body>
+
+</html>

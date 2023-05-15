@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>리스트로 메뉴 만들기</title>
+    <style>
+        #user {
+            background: rgba(236, 236, 11, 0);
+        }
+
+        #user ul {
+            /* 여백과 패딩 모두 0 */
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            /* 모든 아이템(<li>)을 한 줄에 품을 수 있는 폭 */
+        }
+
+        #user ul li {
+            display: inline-block;
+            /* 새 줄로 넘어가지 않게 */
+            list-style-type: none;
+            /* 마커 삭제 */
+            padding: 0px 15px;
+            /* top=bottom=0, left=right=15px */
+        }
+
+        #user ul li a {
+            color: rgb(255, 0, 0);
+            text-decoration: none;
+            /* 링크 보이지 않게 */
+        }
+
+        #user ul li a:hover {
+            color: rgb(0, 21, 255);
+            /* 마우스 올라 갈 때 색 */
+        }
+    </style>
+    <script>
+        function getParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null
+                ? ""
+                : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        function sessionStore() {
+            let id = getParameter("id");
+            let now = new Date();
+            if (!window.sessionStorage) {
+                alert("세션 스토리지에 넣을게 없습니다..");
+                return;
+            }
+            sessionStorage.setItem(id, now);
+            alert(`사용자 ${id} 세션 스토리지 생성`);
+        }
+        function remove() {
+            if (confirm("로그아웃할ggyu?")) {
+                let id = getParameter("id");
+                // let now = new Date();
+                sessionStorage.removeItem(id);
+                alert(`사용자 ${id}세션 스토리지 삭제`);
+                location.href = "index.html";
+            }
+        }
+    </script>
+</head>
+
+<body onload="sessionStore()">
+    <nav id="user">
+        <ul>
+            <li name="li"><a href="/">HOME</a></li>
+            <li name="li"><a href="/simson.html">날_알아봐요</a></li>
+            <li style="float:right"><a onclick="remove()">태초마을</a></li>
+        </ul>
+    </nav>
+    <br>
+    <hr>
+    <iframe name="targetURL" class="iframe-preview center" width="90%" height="500" src="/user.html">
+</body>
+
+</html>

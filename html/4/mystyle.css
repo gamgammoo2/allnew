@@ -1,0 +1,12 @@
+/* mystyle.css */
+body {
+    background-color: lightblue;
+    color: skyblue;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+h3 {
+    text-align: center;
+    color: whitesmoke;
+}

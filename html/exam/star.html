@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>[]로 배열 만들기</title>
+	<style>
+		script {
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>[]로 배열 만들기</h3>
+	<hr>
+	<script>
+		let plots = [1, 3, 5, 7, 9, 11]; // 원소 5개의 배열 생성
+		let blink = [5, 4, 3, 2, 1];
+
+		for (let i = 0; i < 6; i++) { // 5 대신 plots.length로 해도 됨
+			for (let j = 0; j < 5; j++) {
+				while (blink[j] > 0) {
+					document.write(("nbsp;") * plots[i] + "*")
+					break
+				}
+			}
+			// for (let j = 0; j < 5; j++) {
+			// 	let size = plots[i];
+			// 	while (size > 0) {
+			// 		document.write(("&nbsp;") * blink[j] + "*")
+			// 		size--;
+			// 	}
+			document.write("<br>");
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>회문</title>
+   <script>
+      function Checked() {
+         let getT = document.getElementById("put").value;
+         let getB = document.getElementsByName("hoi");
+         let su = parseInt(getT);
+
+         if (getB[0].checked == true) {
+            if (getT.length > 0) {
+               if (getT.length % 2 == 0) {
+                  alert("홀수 자리를 넣지 않았습니다.")
+               } else {
+                  for (let i = 0; i < Math.floor(getT.length / 2); i++) {
+                     if (getT.substr(i, 1) == getT.substr(getT.length - 1 - i, 1)) {
+                        result = "string palindrome"
+                     } else {
+                        result = "hing...goo....!! hoimoon nono"
+                     }
+                  }
+               }
+            } else {
+               result = "휴먼...you...no입력.."
+            }
+         } else if (getB[1].checked = true) {
+            for (let i = getT.length - 1; i > Math.floor(getT.length / 2); i--) {
+               if (getT.length % 2 == 0) {
+                  result = "자리가 홀수인 수를 넣지 않음"
+               }
+               else {
+                  if (i == (getT.length - 1) && su / Math.pow(10, i) != su % Math.pow(10, i)) {
+                     result = "숫자 회문이 아님"
+                     continue;
+                  }
+                  else if (su / Math.pow(10, i) % 10 != su / 10 % Math.pow(10, i)) {
+                     result = "숫자 회문이 아님"
+                     continue;
+                  } else if (i == getT.length - 1 && su / Math.pow(10, i) == su % Math.pow(10, i)) {
+                     continue;
+                  } else if (su / Math.pow(10, i) % 10 != su / 10 % Math.pow(10, i)) {
+                     result = "숫자회문임"
+                  } else {
+                     result = "number palindrome"
+                  }
+               }
+            }
+         } else if (getB[0].checked = false) {
+            result = "you...nonono"
+         } else {
+            result = "you...nonono"
+         }
+
+
+         alert("당신의 입력은 : " + result + "에 해당합니다.")
+      }
+   </script>
+</head>
+
+<body>
+   <h3>버튼을 클릭하면 입력한 값이 회문인지, 아닌지를 말해줄거야.</h3>
+   <hr>
+   <form>
+      <input type="radio" name="hoi" value="1">STR
+      <input type="radio" name="hoi" value="2">NUM<br>
+      <input type="text" id="put" style="color:red">
+      <input type="button" value="let's getit" onclick="Checked()">
+
+   </form>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>숫자를 입력받아 소수를 판단하는 워커태스크</title>
+</head>
+
+<body>
+    <h3>숫자를 입력받아 소수를 판단하는 워커태스크</h3>
+    <hr> <input id="number" type="text" size="10">
+
+    <button type="button" id="add" onclick="send()">집가고싶다</button>
+    <hr>
+    <input id="result" type="text" size="20">
+    <script> let addWorker = new Worker("prime.js"); // 워커 태스크 생성
+        function send() { // 워크 태스크에 숫자 전송 
+            let parameters = { // 걍 숫자로 구성된 객체 
+                isprime: document.getElementById("number").value
+            };
+            // 숫자를 담은 객체를 워커 태스크로 전송 
+            addWorker.postMessage(parameters);
+        }
+        // 워커 태스크로부터 결과를 기다리는 리스너 등록 
+        addWorker.onmessage = function (e) { // 워커 태스크로부터 전달받은 결과 출력
+            document.getElementById("result").value = e.data;
+        }
+    </script>
+</body>
+
+</html>

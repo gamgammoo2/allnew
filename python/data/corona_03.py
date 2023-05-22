@@ -40,7 +40,7 @@ print(type(contents))
 print(contents)
 print('-'*50) #json으로 바꿔야함
 
-dict=json.loads(contents)
+dict=json.loads(contents)   
 print(type(dict))
 print(dict)
 print('-'*50)

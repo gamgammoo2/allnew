@@ -1,0 +1,58 @@
+<!-- <!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>여기에는 문서의 제목을 입력해주세요</title>
+</head>
+
+<body>
+    여기에 웹페이지에 표시할 콘텐츠(태그)를 입력해주세요
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>테스트</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        label {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="get" onsubmit="return validateForm()">
+        <label><input type="checkbox" name="year" value="2018"> 2018</label>
+        <label><input type="checkbox" name="year" value="2019"> 2019</label>
+        <label><input type="checkbox" name="year" value="2020"> 2020</label>
+        <label><input type="checkbox" name="year" value="2021"> 2021</label>
+        <label><input type="checkbox" name="year" value="2022"> 2022</label>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        function validata() {
+            var checkboxes = document.querySelectorAll('input[name="year"]:checked');
+            var numChecked = checkboxes.length;
+
+            if (numChecked !== 2) {
+                alert("체크를 확인해주세요 (2가지의 년도를 선택해주세요).");
+                return false;
+                // 중지
+            }
+
+            // 계속
+            return true;
+        }
+    </script>
+</body>
+
+</html>

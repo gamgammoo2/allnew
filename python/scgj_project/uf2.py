@@ -1,6 +1,7 @@
-import json, urllib.request, datetime, math
+import json, urllib.request, math
 import os.path
 from pymongo import mongo_client
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("./")))
 secret_file = os.path.join(BASE_DIR, '../secret.json')

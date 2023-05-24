@@ -7,8 +7,8 @@ from bson.objectid import ObjectId
 import os.path
 import json
 from uf2 import save_data_to_mongodb
-import re
-import matplotlib.pyplot as plt
+import re #re.compile을 하기위해서 필요
+import matplotlib.pyplot as plt  
 
 plt.rcParams['font.family'] = "AppleGothic"
 
@@ -44,7 +44,7 @@ mycol = mydb['projectdb']
 def healthCheck():
     return "OK"
 
-#몽고db에 저장된 데이터들을 모두 가져오기
+#몽고db에 저장된 데이터들을 column 중 dataDate부분만 경보발생수 합쳐서 가져오기
 @app.get('/getmongo')
 async def getMongo():
     result=list(mycol.find())
@@ -74,7 +74,7 @@ async def add_data(year=None):
         result = save_data_to_mongodb(year)
         return result
 
-#년도를 입력하면, 09월부터 다음해 2월까지의 "월별" 초미세먼지 경보발생 수의 합을 도출
+#년도를 입력하면, 09월부터 다음해 2월까지의 "월별" 초미세먼지 경보발생 수의 합을 도출 및 그래프로 시각화
 @app.get('/get_winter')
 async def get_winter(year=None):
     if year is None:
@@ -109,7 +109,7 @@ async def get_winter(year=None):
             plt.text(x=idx,y=df['count'][idx]+1,s=value, horizontalalignment='center')
 
         colors = ['#ffab91', '#ffe082', '#c5e1a5', '#80cbc4', '#81d4fa', '#b39ddb']
-        plt.bar(df.index, df['count'], color=colors)
+        plt.bar(df.index, df['count'], color=colors, width=0.5)
 
         filename=f'ultrafine_2half_{year}.png'
         plt.savefig(filename, dpi=400, bbox_inches='tight')
@@ -117,7 +117,7 @@ async def get_winter(year=None):
         plt.show()
         return(filename +'  saved..')
 
-#년도를 입력시, 해당년도의 월별 초미세먼지의 경보수 합산
+#년도를 입력시, 해당년도의 월별 초미세먼지의 경보수와 그래프로 시각화
 @app.get('/get_total')
 async def get_total(year=None):
     if year is None:
@@ -157,7 +157,7 @@ async def get_total(year=None):
             plt.text(x=idx,y=df['count'][idx]+1,s=value, horizontalalignment='center')
 
         colors = ['#ffab91', '#ffcc80', '#ffe082', '#e6ee9c', '#c5e1a5', '#a5d6a7', '#80cbc4', '#80deea', '#81d4fa', '#90caf9', '#9fa8da', '#b39ddb']
-        plt.bar(df.index, df['count'], color=colors)
+        plt.bar(df.index, df['count'], color=colors,width=0.5)
 
         filename=f'ultrafine_total_{year}.png'
         plt.savefig(filename, dpi=400, bbox_inches='tight')
@@ -176,6 +176,37 @@ async def yeardel(year=None):
 
             # remaining=[item for item in mycol.find()]
             return (f"{year}의 Data가 정상 삭제 되었습니다.")
+        
+
+#------------------------------------------
+
+#년도를 입력시, 해당년도의 월별 초미세먼지의 경보수
+@app.get('/get_totalnum')
+async def get_totalnum(year=None):
+    if year is None:
+        return "'년도(ex,2018)'을 입력하세요"
+    else:
+        seek=[re.compile(f"{str(year)}-{str(month).zfill(2)}") for month in range(1,13)]
+        query = {"dataDate" : {"$in":seek}}
+        cursor = mycol.find(query)
+
+        data = {}
+        for item in cursor:
+            dataDate = item["dataDate"]
+            if dataDate[:7] not in data:
+                data[dataDate[:7]] = 1
+            else:
+                data[dataDate[:7]] += 1
+
+        #data에서 없는 월을 value를 0으로 채워넣기
+        for months in range(1, 13):
+            month_str = str(months).zfill(2)
+            date_str = f"{str(year)}-{month_str}"
+            if date_str not in data:
+                data[date_str] = 0
+
+        sorted_data = dict(sorted(data.items()))
+        return sorted_data
         
 
 

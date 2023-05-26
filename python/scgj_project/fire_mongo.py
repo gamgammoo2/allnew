@@ -48,7 +48,7 @@ def getRequestUrl(url):
         return None
 
 def fire():
-    url = 'http://192.168.1.187:5000/data'
+    url = 'http://192.168.1.187:5000/fire'
 
     result = getRequestUrl(url)
 
@@ -57,9 +57,9 @@ def fire():
     else:
         return json.loads(result)
 
-#년월필드를 기준으로 입력되는 년도의 중복되는 데이터를 검색하기
-def duplica(yd):
-    query = {"년월":yd}
+#월별필드를 기준으로 입력되는 중복되는 데이터를 검색하기
+def duplica(mth):
+    query = {"월별":mth}
     count = mycol.count_documents(query)
     return count > 0
 
@@ -68,13 +68,13 @@ def duplica(yd):
 def healthCheck():
     return {"OK":True}
 
-#년도별 산불 발생수가 mongodb에 저장됨
+#년도별 산불 발생수가 mongodb에 저장됨(중복 안되게 처리)
 @app.get('/add_fire')
 async def save_data_fire_mongo():
     listResult = []
     listData = fire()
     for item in listData:
-        if not duplica(item["년월"]):
+        if not duplica(item["월별"]):
             listResult.append(item)
     
     if listResult:
@@ -83,10 +83,16 @@ async def save_data_fire_mongo():
 
 #mongodb에 저장된 모든 데이터 가져오기
 @app.get('/firemongo')
-async def fireMongo():
-    result=list(mycol.find())
-    data={item["년월"]:item["횟수"] for item in result}
-    return data
+async def firemongo():
+    result=list(mycol.find())[1:]#리스트의 첫번째 dict는 총합이라서 두번째부터 들고와야함
+    dict_result={}
+
+    for data in result:
+        years = {year: data[year] for year in ["2018","2019","2020","2021","2022"]}
+        values = {f'{year}-{str(data["월별"].replace("월","")).zfill(2)}':str(count) for year, count in years.items()}
+        dict_result.update(values)
+
+    return dict_result
 
 #mongodb에 저장된 입력한 년도에 맞아떨어지는 데이터 가져오기
 @app.get('/year_firemongo')
@@ -94,17 +100,18 @@ async def year_firemongo(year=None):
     if year is None:
         return "'년도(ex,2018)의 입력을 확인해주세요"
     else:
-        result=await fireMongo()
+        result=await firemongo()
         data = {key:value for key, value in result.items() if key.split('-')[0] == year}
         return data
     
+#mongodb에 저장된 입력한 년도중 하반기 데이터 가져오기
 @app.get('/month_firemongo')
 async def month_firemongo(year=None):
     if year is None:
         return "'년도(ex,2018)의 입력을 확인해주세요"
     else:
         months=["06","07","08","09","10","11","12"]
-        result=await fireMongo()
+        result=await firemongo()
         data = {key:value for key, value in result.items() if key.split('-')[0] == year and key.split('-')[1] in months}
         return data
     

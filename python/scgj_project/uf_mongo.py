@@ -55,15 +55,15 @@ async def getMongo():
     return results
 
 #"년도-월-일" 형식으로 입력하면, 해당 일의 경보 발생 정보를 도출
-@app.get('/getdata')
-async def getdate(dataDate=None):
-    if getdate is None:
-        return "'년도-월-일(ex,2018-01-01)'을 입력하세요"
-    result = list(mycol.find({"dataDate":dataDate}))
-    if result:
-        return result
-    else:
-        return "검색 결과가 없습니다."
+# @app.get('/getdata')
+# async def getdate(dataDate=None):
+#     if getdate is None:
+#         return "'년도-월-일(ex,2018-01-01)'을 입력하세요"
+#     result = list(mycol.find({"dataDate":dataDate}))
+#     if result:
+#         return result
+#     else:
+#         return "검색 결과가 없습니다."
 
 #년도를 입력하면 해당 년도의 초미세먼지 경보 데이터가 mongodb에 저장됨
 @app.get('/add_data')
@@ -207,7 +207,29 @@ async def get_totalnum(year=None):
 
         sorted_data = dict(sorted(data.items()))
         return sorted_data
-        
 
+#년도를 입력시, 해당년도의 9월부터 다음해 2월까지 초미세먼지의 경보수        
+@app.get('/get_monthnum')
+async def get_monthnum(year=None):
+    if year is None:
+        return "'년도(ex,2018)'을 입력하세요"
+    else:
+        months1 = ["09", "10", "11", "12"]
+        months2 = ["01", "02"]
+        seek=[re.compile(f"{str(year)}-{month}") for month in months1]+[re.compile(f"{int(year)+1}-{month}") for month in months2]
+        query = {"dataDate" : {"$in":seek}}
+        cursor = mycol.find(query)
+
+        data = {}
+        for item in cursor:
+            dataDate = item["dataDate"]
+            if dataDate[:7] not in data:
+                data[dataDate[:7]] = 1
+            else:
+                data[dataDate[:7]] += 1
+
+        sorted_data = dict(sorted(data.items()))
+        return sorted_data
+       
 
  

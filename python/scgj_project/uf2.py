@@ -100,4 +100,4 @@ def save_data_to_mongodb(year):
             break
     if dictResult:
         mycol.insert_many(dictResult)
-    return "데이터 추가되었습니다."
+    return {"INSERT":"OK","DB":"MongoDB","DATA":f"{year}"}

@@ -1,14 +1,8 @@
 from fastapi import FastAPI
 import requests
 from database import db_conn
-from models import ufTotal, ufHalf
+from models import ufTotal
 from uf_mongo import get_totalnum,get_monthnum
-from fire_mongo import year_firemongo,month_firemongo
-
-import pandas as pd
-import numpy as np
-
-import json
 
 app = FastAPI()
 
@@ -20,12 +14,12 @@ async def healthCheck():
     return "OKAY"
 
 #input year -> mysql
-@app.get('/add_total')
-async def add_total(year=None):
-    if year is None:
-        return "'년도(ex,2018)'을 입력하세요"
+@app.get('/mysql_uf')
+async def add_total(year1=None,year2=None):
+    if year1 is None and year2 is None:
+        return "'년도(ex,2018,2019)'을 입력하세요"
     else:
-        result = await get_totalnum(year)
+        result = await get_winter(year1,year2)
         #result는 딕셔너리 형태로 들어옴
         data = result
         
@@ -57,7 +51,8 @@ async def df_total(year=None):
     else:
         temp_result= response.json()
         uf_result = await get_totalnum(year)
-        fire_result = await year_firemongo(year)
+        fire_results = await year_firemongo(year1 year2)
+        fire_result=fire_results[0]
         #df 생성
         #'uf_result'랑 'fire_re~'가 int64로 되어있어서 오류가 발생 ->pandas의 df는 이터러블한 객체를 입력받기때문에 오류가 됌. 따라서 데이터를 dict로 변환해주어야함
 
@@ -94,7 +89,8 @@ async def df_season(year=None):
             return {"ok": False, "db" : "mongodb", "service" : "/month_tempmongo"}
         temp_result= response.json()
         uf_result = await get_monthnum(year)
-        fire_result = await month_firemongo(year)
+        fire_results = await month_firemongo(year)
+        fire_result=fire_results[0]
         #df 생성
         #'uf_result'랑 'fire_re~'가 int64로 되어있어서 오류가 발생 ->pandas의 df는 이터러블한 객체를 입력받기때문에 오류가 됌. 따라서 데이터를 dict로 변환해주어야함
 

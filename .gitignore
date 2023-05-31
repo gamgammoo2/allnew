@@ -34,6 +34,10 @@ scala/**/target
 node/**/node_modules
 node/**/package-lock.json
 
+##nodejs in python
+python/**/node_modules
+python/**/package-lock.json
+
 ##maven
 maven/target
 

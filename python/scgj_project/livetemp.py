@@ -8,6 +8,19 @@ import numpy as np
 import pydantic
 from bson.objectid import ObjectId
 import matplotlib.pyplot as plt  
+#mysql--
+import requests
+from database import db_conn
+from models import ufTotal,ufGraph
+from sqlalchemy import create_engine, text
+from PIL import Image
+import base64
+from io import BytesIO
+from typing import List
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+import uvicorn
+# ---sql-----
 
 plt.rcParams['font.family'] = "AppleGothic"
 
@@ -156,9 +169,22 @@ print('Connected to Mongodb....')
 
 mydb = client['test']
 mycol = mydb['totaltemp']
+# sql------
+os.makedirs("./images", exist_ok=True)
+app.mount("/images", StaticFiles(directory="./images"), name='images')
 
+HOSTNAME = get_secret("Mysql_Hostname")
+PORT = get_secret("Mysql_Port")
+USERNAME = get_secret("Mysql_Username")
+PASSWORD = get_secret("Mysql_Password")
+DBNAME = get_secret("Mysql_DBname")
+
+DB_URL = f'mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DBNAME}'
+
+engine = create_engine(DB_URL, pool_recycle=500)
+#mysql --
 def totaltemp():
-    url = 'http://192.168.1.187:5001/totaltemp'
+    url = 'http://192.168.1.187:5001/jtotaltemp'
 
     result = getRequestUrl(url)
 
@@ -174,9 +200,9 @@ def duplica2(date):
     return count > 0
 
 #연결 체크
-@app.get('/')
-def healthCheck():
-    return {"OK":True}
+# @app.get('/')
+# def healthCheck():
+#     return {"OK":True}
 
 #월별 기온이 mongodb에 저장됨(중복 안되게 처리)
 @app.get('/add_totaltemp')
@@ -192,6 +218,28 @@ async def save_data_totaltemp_mongo():
     # return "데이터 추가되었습니다."
     return {"OK": True, "db": "mongodb", "service": "/add_totaltemp"}
 
+def InsertImageDB(filename):
+    os.chdir('./images')
+## jpg dpi 100x100, png dpi 72x72
+    with open(filename, "rb") as image_file:
+        binary_image = image_file.read()
+        binary_image = base64.b64encode(binary_image)
+        binary_image = binary_image.decode('UTF-8')
+        img_df = pd.DataFrame({'filename':filename,'image_data':[binary_image]})
+        #이미지의 텍스트화가 너무 길어서 longtext를 받을 수 있게 type 재정의
+        with engine.begin() as connection:
+            alter_query = text("ALTER TABLE images MODIFY image_data LONGTEXT")
+            connection.execute(alter_query)
+
+        # 중복 체크 후 데이터 삽입
+        existing_filenames = pd.read_sql_table('images', con=engine, columns=['filename'])
+        if filename in existing_filenames.values:
+            return f'"OK":False,"{filename}":"exist"'
+        else:
+            img_df.to_sql('images', con=engine, if_exists='append', index=False)
+
+    os.chdir('../')
+    return '"Image file" : "Inserted"'
 
 #예측
 from prophet import Prophet
@@ -230,9 +278,11 @@ async def totaltempmongo():
     #prophet은 선색이랑 점색을 바꿀 수 없음
     plt.gca().lines[1].set_color('red')  # 라인 색 바꾸기
 
-    plt.savefig(f"totaltemp9_forecast.png", dpi=400, bbox_inches="tight")
+    save_path = './images/predict_temp_2018to2023.png'
+    plt.savefig(save_path, dpi=400, bbox_inches="tight")
+    # resultss=InsertImageDB('predict_temp_2018to2023.png')
 
-    return "done"
+    return 'done'
 
 # import seaborn as sns
 # # from plotly.offline import init_notebook_mode

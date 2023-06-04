@@ -89,14 +89,14 @@ async def add_data(year=None):
         # return {"OK": True, "db": "mongodb", "service": "/add_data"}
 
 #몽고db에 저장된 데이터들을 column 중 dataDate부분만 경보발생수 합쳐서 가져오기
-# @app.get('/getmongo')
-# async def getMongo():
-#     result=list(mycol.find())
-#     df = pd.DataFrame(result)
-#     df['dataDate']=pd.to_datetime(df['dataDate'])
-#     df.set_index('dataDate',inplace = True)
-#     results = df.groupby(pd.Grouper(freq='D')).size().to_dict()
-#     return results
+@app.get('/getmongo')
+async def getMongo():
+    result=list(mycol.find())
+    df = pd.DataFrame(result)
+    df['dataDate']=pd.to_datetime(df['dataDate'])
+    df.set_index('dataDate',inplace = True)
+    results = df.groupby(pd.Grouper(freq='D')).size().to_dict()
+    return results
 
 #년도를 입력하면, 05월부터 다음해 4월까지의 "월별" 초미세먼지 경보발생 수의 합을 도출 및 그래프로 시각화
 @app.get('/get_winter')
@@ -315,16 +315,6 @@ def InsertImageDB(filename):
     os.chdir('../')
     return '"Image file" : "Inserted"'
 
-# def SelectImageDB(year1:int, year2:int):
-#     with engine.connect() as conn:
-#         query = text("SELECT * FROM images WHERE filename = :filename")
-#         result = conn.execute(query, {"filename": f"ultrafine_{year1}&{year2}.png"})
-#         result_dict=[]
-#         for row in result:
-#             result_dict.append(row)
-        
-#     return result_dict
-
 @app.get('/for_ufgraph')
 async def for_ufgraph(year1=None,year2=None):
     if year1 is None or year2 is None:
@@ -427,7 +417,19 @@ async def for_ufgraph(year1=None,year2=None):
         plt.savefig(save_path+filename, dpi=400, bbox_inches='tight')
         resultss=InsertImageDB(filename)
     
-        return resultss
+        return {"OK":True}
+
+#지우고 싶은 년도 입력시, 해당년도 데이터 삭제
+@app.get("/yeardel")
+async def yeardel(year=None):
+        if year is None:
+            return "지우고 싶은 year을 입력하세요(ex, 2018)"
+        else:
+            query={"dataDate":{"$regex":f"^{year}-"}}
+            mycol.delete_many(query)
+
+            # remaining=[item for item in mycol.find()]
+            return {"result": "OK"}
 
 #input year -> 년도별 경보 수  insert mysql
 @app.get('/mysql_uf')
@@ -501,8 +503,17 @@ async def mysql_uf(year1=None,year2=None):
 
         results=session.query(ufTotal).all()
         
-        return results
+        return {"OK":True}
 
+def SelectImageDB(year1:int, year2:int):
+    with engine.connect() as conn:
+        query = text("SELECT * FROM images WHERE filename = :filename")
+        result = conn.execute(query, {"filename": f"ultrafine_{year1}&{year2}.png"})
+        result_dict=[]
+        for row in result:
+            result_dict.append(row)
+        
+    return result_dict
 
 # @app.get('/selectImages')
 # async def selectImages(year1:int, year2:int):
@@ -557,17 +568,7 @@ async def mysql_uf(year1=None,year2=None):
 #         plt.show()
 #         return data,(filename +'  saved..')
     
-#지우고 싶은 년도 입력시, 해당년도 데이터 삭제
-@app.get("/yeardel")
-async def yeardel(year=None):
-        if year is None:
-            return "지우고 싶은 year을 입력하세요(ex, 2018)"
-        else:
-            query={"dataDate":{"$regex":f"^{year}-"}}
-            mycol.delete_many(query)
 
-            # remaining=[item for item in mycol.find()]
-            return {"result": "OK"}
         
 
 #------------------------------------------

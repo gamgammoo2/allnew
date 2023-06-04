@@ -215,9 +215,8 @@ async def year_firemongo(year1=None,year2=None):
         save_path =f'./images/'
         filename=f'yearfire_total_{year1}&{year2}.png'
         plt.savefig(save_path+filename, dpi=400, bbox_inches='tight')
-        resultss=InsertImageDB(filename)
     
-        return resultss
+        return {'ok':True}
 
 @app.get('/combined_frame2/{year1}/{year2}')
 async def combined_frame2(year1: int, year2: int):
@@ -303,46 +302,46 @@ async def result_fire(year1=None,year2=None):
 
     return output
 
-db = db_conn()
-session = db.sessionmaker()
+# db = db_conn()
+# session = db.sessionmaker()
 
-#input year -> 년도별 경보 수  insert mysql
-@app.get('/mysql_fire')
-async def mysql_fire(year1=None,year2=None):
-    if year1 is None and year2 is None:
-        return "'년도(ex,2018,2019)'을 입력하세요"
-    else:
-        results=await firemongo()
-        result = [{"년도-월": key, "산불 발생 수": value if value != "-" else "0"} for key, value in results.items()]
+# #input year -> 년도별 경보 수  insert mysql
+# @app.get('/mysql_fire')
+# async def mysql_fire(year1=None,year2=None):
+#     if year1 is None and year2 is None:
+#         return "'년도(ex,2018,2019)'을 입력하세요"
+#     else:
+#         results=await firemongo()
+#         result = [{"년도-월": key, "산불 발생 수": value if value != "-" else "0"} for key, value in results.items()]
 
-        df = pd.DataFrame(result, columns = ['년도-월','산불 발생 수'])
+#         df = pd.DataFrame(result, columns = ['년도-월','산불 발생 수'])
     
-        # '년월' 열을 날짜형으로 변환
-        df['년도-월'] = pd.to_datetime(df['년도-월'])
+#         # '년월' 열을 날짜형으로 변환
+#         df['년도-월'] = pd.to_datetime(df['년도-월'])
 
-        # 입력한 연도 데이터 필터링
-        df_year1 = df[df['년도-월'].dt.year == int(year1)].sort_values(by='년도-월')
-        df_year2 = df[df['년도-월'].dt.year == int(year2)].sort_values(by='년도-월')
+#         # 입력한 연도 데이터 필터링
+#         df_year1 = df[df['년도-월'].dt.year == int(year1)].sort_values(by='년도-월')
+#         df_year2 = df[df['년도-월'].dt.year == int(year2)].sort_values(by='년도-월')
 
-        # '년도-월' 열의 형식을 월만 포함하도록 변경
-        df_year1['년도-월'] = df_year1['년도-월'].dt.strftime('%Y-%m')
-        df_year2['년도-월'] = df_year2['년도-월'].dt.strftime('%Y-%m')
+#         # '년도-월' 열의 형식을 월만 포함하도록 변경
+#         df_year1['년도-월'] = df_year1['년도-월'].dt.strftime('%Y-%m')
+#         df_year2['년도-월'] = df_year2['년도-월'].dt.strftime('%Y-%m')
 
-        #df의 index를 바꿔야함
-        df_json1 = jsonable_encoder(df_year1.reset_index(drop=True))
-        df_json2 = jsonable_encoder(df_year2.reset_index(drop=True))
+#         #df의 index를 바꿔야함
+#         df_json1 = jsonable_encoder(df_year1.reset_index(drop=True))
+#         df_json2 = jsonable_encoder(df_year2.reset_index(drop=True))
 
-        #딕셔너리의 키와 값으로 zip을 생성하기
-        for (date1, count1), (date2, count2) in zip(df_year1, df_year2):
-            total = fireTotal(DATADATE1=date1, COUNT1=count1, DATADATE2=date2, COUNT2=count2)
-            session.add(total)
-            session.dirty.add(total)
+#         #딕셔너리의 키와 값으로 zip을 생성하기
+#         for (date1, count1), (date2, count2) in zip(df_year1, df_year2):
+#             total = fireTotal(DATADATE1=date1, COUNT1=count1, DATADATE2=date2, COUNT2=count2)
+#             session.add(total)
+#             session.dirty.add(total)
 
-        session.commit()
+#         session.commit()
 
-        results=session.query(fireTotal).all()
+#         results=session.query(fireTotal).all()
         
-        return results
+#         return results
 
 #람다 없이도 컬럼 정렬하기
 # def convert_str_to_int(x):

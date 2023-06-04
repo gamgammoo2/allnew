@@ -76,28 +76,20 @@ def duplica(mth):
     count = mycol.count_documents(query)
     return count > 0
 
-#연결 체크
-@app.get('/')
-def healthCheck():
-    return {"OK":True}
-
-#월별 기온이 mongodb에 저장됨(중복 안되게 처리)
-@app.get('/add_livetemp')
-async def save_data_livetemp_mongo():
-    listResult = []
-    listData = livetemp()
-    for item in listData:
-        if not duplica(item["기온분석"]):
-            listResult.append(item)
+# #월별 기온이 mongodb에 저장됨(중복 안되게 처리)
+# @app.get('/add_livetemp')
+# async def save_data_livetemp_mongo():
+#     listResult = []
+#     listData = livetemp()
+#     for item in listData:
+#         if not duplica(item["기온분석"]):
+#             listResult.append(item)
     
-    if listResult:
-        mycol.insert_many(listResult)
-    # return "데이터 추가되었습니다."
-    return {"OK": True, "db": "mongodb", "service": "/add_livetemp"}
+#     if listResult:
+#         mycol.insert_many(listResult)
+#     # return "데이터 추가되었습니다."
+#     return {"OK": True, "db": "mongodb", "service": "/add_livetemp"}
 
-
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
 
 #mongodb에 저장된 모든 데이터 가져오기
 @app.get('/livetempmongo')
@@ -116,40 +108,7 @@ async def livetempmongo():
     # "Value" 열 데이터를 숫자형으로 변환
     df["Value"] = df["Value"].astype(float)
     
-    # 그래프 생성
-    plt.figure(figsize=(15, 9))
-    plt.scatter(df["Key"], df["Value"], color="r", label="Data")
-
-    # 선형 회귀 모델 학습
-    X = np.arange(len(df)).reshape(-1, 1)
-    y = df["Value"].values.reshape(-1, 1)
-    reg = LinearRegression()
-    reg.fit(X, y)
-
-    # 추세선 그리기
-    plt.plot(df["Key"], reg.predict(X), color="r", label="Trendline")
-
-    # R² 값 계산
-    r2 = r2_score(y, reg.predict(X))
-    r2_label = f"R² = {r2:.2f}"
-
-    # R² 값 표시
-    plt.text(0.5, df["Value"].max() - 0.5, r2_label, ha="center", va="bottom", color="g")
-
-    # 그래프 스타일 및 레이블 설정
-    plt.xticks(rotation=45)
-    plt.xlabel("Key")
-    plt.ylabel("Value")
-    plt.title("Graph with Trendline and R² Value")
-    plt.legend()
-
-    # 그래프 출력
-    # plt.tight_layout()
-    # plt.show()
-    plt.savefig(f"livetemp.png", dpi=400, bbox_inches='tight')
-
-    return data,f"livetemp.png saved..."
-    # return {"OK": True, "db": "mongodb", "service": "/livetempmongo"}
+    return {"OK": True, "db": "mongodb", "service": "/livetempmongo"}
 
 # --------------------------------------------------------------
 
@@ -280,9 +239,9 @@ async def totaltempmongo():
 
     save_path = './images/predict_temp_2018to2023.png'
     plt.savefig(save_path, dpi=400, bbox_inches="tight")
-    # resultss=InsertImageDB('predict_temp_2018to2023.png')
+    InsertImageDB('predict_temp_2018to2023.png')
 
-    return 'done'
+    return {'OK':True}
 
 # import seaborn as sns
 # # from plotly.offline import init_notebook_mode

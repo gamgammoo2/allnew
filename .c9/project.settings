@@ -9,7 +9,8 @@
         "@editor.suggest.preview": true,
         "@editor.suggest.showMethods": true,
         "@git.autofetch": true,
-        "@git.confirmSync": false
+        "@git.confirmSync": false,
+        "@git.enableSmartCommit": true
     },
     "language": {
         "tern_defs": {

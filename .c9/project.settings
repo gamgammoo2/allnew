@@ -1,4 +1,7 @@
 {
+    "build": {
+        "@saveall": true
+    },
     "extensions": {
         "@aws.profile": "",
         "@editor.acceptSuggestionOnEnter": "on",

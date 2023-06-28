@@ -1,23 +1,8 @@
-<<<<<<< HEAD
 #gitignore
 
 .ftpconfig
 .env
 **/.env
-
-#c programming
-c/**/a.out
-c/**/hello
-c/**/*.o
-c/**/test
-
-###java
-
-java/*.class
-=======
-#gitignore
-
-.ftpconfig
 
 #c programming
 c/**/a.out

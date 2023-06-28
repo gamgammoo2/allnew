@@ -1,11 +1,11 @@
 build:
-	docker build -t nodejs .
+	docker build -t remote .
 run:
-	docker run -it -d -p 8000:8000 -v /allnew/node:/app --name nodejs nodejs
+	docker run -it -d -p 8000:8000 -v /allnew/node:/app --name remote remote
 exec:
-	docker exec -it nodejs /bin/bash
+	docker exec -it remote /bin/bash
 logs:
-	docker logs nodejs
+	docker logs remote
 ps:
 	docker ps -a
 img:

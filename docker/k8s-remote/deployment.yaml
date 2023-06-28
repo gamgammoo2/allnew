@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: node-web-app
+  name: remote-msa
   labels:
-    app: node-web-app
+    app: remote-msa
 spec:
   replicas: 3 # three pod
   selector:
     matchLabels:
-      app: node-web-app
+      app: remote-msa
   template:
     metadata:
       labels:
-        app: node-web-app
+        app: remote-msa
     spec:
       containers:
-      - name: node-web-app
-        image: gamgammoo/node-web-app
+      - name: remote-msa
+        image: gamgammoo/remote-msa
         ports:
         - containerPort: 8000 # container port (pod port)

@@ -1,18 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: node-web-app
+  name: remote-msa
   labels:
-    run: node-web-app
+    run: remote-msa
 spec:
   type: NodePort  #set service type
   ports:
-  - nodePort: 30000 # outter port
+  - nodePort: 30800 # outter port
     port: 8080  #service port
     targetPort: 8000 #container port (pod port)
     protocol: TCP
   selector:
-    app: node-web-app
+    app: remote-msa
   type: LoadBalancer
   externalIPs: 
   - 13.125.128.89

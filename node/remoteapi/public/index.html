@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>
@@ -22,7 +23,8 @@
         onclick="document.targetURL.location.href='/api/users/'+document.userForm.id.value">&nbsp;
         <p>Name : <input type="text" size="15" name="name" /></p>
         <input type="button" value="GET /api/users/user?userid & name" 
-        onclick="document.targetURL.location.href='/api/users/user?user_id='+document.userForm.id.value+'&name='+document.userForm.name.value"/><br />
+        onclick="document.targetURL.location.href='/api/users/user?user_id='+document.userForm.id.value+'&name='+
+        document.userForm.name.value"/><br />
     <hr />
         <h4> POST APIs </h4>
     <hr />
@@ -32,6 +34,6 @@
         &nbsp;&nbsp;
     </form>
     <hr />
-    <iframe name="targetURL" width="100%" height="70%" style="border : none" src="/api/users"></iframe>
+    <iframe name="targetURL" width="100%" height="70%" style="border : none" src="http://13.125.43.145:8000/api/users"></iframe>
 </body>
 </html>

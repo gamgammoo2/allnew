@@ -1,14 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('sync-mysql');
-const env = require('dotenv').config({ path: "../../.env" });
-
-var connection = new mysql({
-    host: process.env.host,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
-});
 
 const app = express()
 
@@ -17,63 +8,87 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const users = [
+        {id:1, name:"User1"},
+        {id:2, name:"User2"},
+        {id:3, name:"User3"}
+]
+
 app.get('/hello', (req, res) => {
-    res.send('Hello World~!!')
+    res.send("Hello World~!!");
 })
 
-// request O, query X
-app.get('/select', (req, res) => {
-    const result = connection.query('select * from user');
-    console.log(result);
-    res.send(result);
+// request X , response O
+app.get("/api/users", (req, res) => {
+    res.json({ok:true, users:users});
 })
 
-// request O, query X
-app.post('/select', (req, res) => {
-    const result = connection.query('select * from user');
-    console.log(result);
-    res.send(result);
+// Query param, request O, response O
+app.get("/api/users/user", (req, res) => {
+    let user = "";
+    const { user_id, name } = req.query
+    if (req.query.name == undefined) {
+        user = users.filter(data => data.id == user_id)
+    } else {
+        user = users.filter(data => data.id == user_id && data.name == name)
+    }
+    res.json({ok:false, users:user});
 })
 
-// request O, query O
-app.get('/selectQuery', (req, res) => {
-    const id = req.query.id;
-    const result = connection.query("select * from user where userid=?", [id]);
-    console.log(result);
-    res.send(result);
+// Path param, request O, response O
+app.get("/api/users/:user_id", (req, res) => {
+    const user_id = req.params.user_id
+    const user = users.filter(data => data.id == user_id)
+    res.json({ok:false, users:user});
 })
 
-// request O, query O
-app.post('/selectQuery', (req, res) => {
-    const id = req.body.id;
-    // console.log(req.body);
-    const result = connection.query("select * from user where userid=?", [id]);
-    console.log(result);
-    res.send(result);
+// post, request body O, response O
+app.post("/api/users/userBody", (req, res) => {
+    const user_id = req.body.id
+    const user = users.filter(data => data.id == user_id)
+    res.json({ok:false, users:user});
 })
 
-// request O, query O
-app.post('/insert', (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?, ?)", [id, pw]);
-    console.log(result);
-    res.redirect('/selectQuery?id=' + req.body.id);
+// post, request body O, response O
+app.post("/api/users/add", (req, res) => {
+    const { id, name } = req.body
+    const user = users.concat({ id, name})
+    res.json({ok:true, users:user});
 })
 
-// request O, query O
-app.post('/update', (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
-    console.log(result);
-    res.redirect('/selectQuery?id=' + req.body.id);
+// put, request body O, response O
+app.put("/api/users/update", (req, res) => {
+    const { id, name } = req.body
+    const user = users.map(data => {
+        if (data.id == id) data.name = name
+        return {
+            id : data.id,
+            name : data.name
+        }
+    })
+    res.json({ok:true, users:user});
 })
 
-// request O, query O
-app.post('/delete', (req, res) => {
-    const id = req.body.id;
-    const result = connection.query("delete from user where userid=?", [id]);
-    console.log(result);
-    res.redirect('/select');
+// patch, request params & body O, response O
+app.patch("/api/users/update/:user_id", (req, res) => {
+    const { user_id } = req.params
+    const { name } = req.body
+    const user = users.map(data => {
+        if (data.id == user_id) data.name = name
+        return {
+            id : data.id,
+            name : data.name
+        }
+    })
+    res.json({ok:true, users:user});
+})
+
+// delete, request body O, response O
+app.delete("/api/users/delete", (req, res) => {
+    const { user_id } = req.body
+    const user = users.filter(data => data.id != user_id)
+    res.json({ok:false, users:user});
 })
 
 module.exports = app;
+

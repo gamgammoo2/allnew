@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: weather-msa
+  labels:
+    app: weather-msa
+spec:
+  replicas: 3 # three pod
+  selector:
+    matchLabels:
+      app: weather-msa
+  template:
+    metadata:
+      labels:
+        app: weather-msa
+    spec:
+      containers:
+      - name: weather-msa
+        image: gamgammoo/weather-msa
+        ports:
+        - containerPort: 8080 # container port (pod port)

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: weather-msa
+  labels:
+    run: weather-msa
+spec:
+  type: NodePort  #set service type
+  ports:
+  - nodePort: 31200 # outter port
+    port: 8080  #service port
+    targetPort: 8000 #container port (pod port)
+    protocol: TCP
+  selector:
+    app: weather-msa
+  type: LoadBalancer
+  externalIPs: 
+  - 13.125.128.89

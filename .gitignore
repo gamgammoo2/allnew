@@ -44,3 +44,5 @@ mongodb/**/*.mp4
 oracle/node/dbConfig.js
 oracle/node/node_modules
 oracle/node/package-lock.json
+
+**/node_modules

@@ -46,3 +46,9 @@ oracle/node/node_modules
 oracle/node/package-lock.json
 
 **/node_modules
+
+**/bin
+**/include
+**/lib
+**/lib64
+**/pyvenv.*

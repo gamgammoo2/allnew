@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8888);
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,12 +14,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //mongoose configuration
-const mongoose = require("mongoose")
-mongoose.connect("mongodb://192.168.1.187:27017/test")
+// const mongoose = require("mongoose")
+// mongoose.connect("mongodb://192.168.1.187:27017/test")
 
 var main = require('./routes/main.js');
 app.use('/', main);
 
 app.listen(app.get('port'), () => {
-    console.log('8000 Port : Server Started...')
+    console.log('8888 Port : Server Started...')
 });
